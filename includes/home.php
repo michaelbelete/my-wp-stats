@@ -12,7 +12,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css"
     />
     <link rel="stylesheet" href="assets/css/tailwind.min.css" />
-    <script src="assets/js/apexcharts.js"></script>
+    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css" />
   </head>
 
   <body class="bg-gray-200">
@@ -200,8 +200,48 @@
         </div>
         <!-- Top users start here -->
       </div>
+      <!-- table start here -->
+      <div class="bg-white shadow rounded-lg px-5 py-2">
+        <h3 class="font-semibold text-lg text-gray-500 pb-5">Top Users</h3>
+
+        <table id="table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Total Posts</th>
+              <th>Total Comments</th>
+              <th>Total Media</th>
+              <th>Total Word</th>
+              <th>Average Comment Per Post</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2000</td>
+              <td>20</td>
+              <td>400</td>
+              <td>40</td>
+              <td>800</td>
+              <td>2000</td>
+            </tr>
+            <tr>
+                <td>2000</td>
+                <td>20</td>
+                <td>400</td>
+                <td>40</td>
+                <td>800</td>
+                <td>2000</td>
+              </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- table end here -->
     </div>
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/jquery.dataTables.min.js"></script>
     <script src="assets/js/tailwind.js"></script>
+    <script src="assets/js/apexcharts.js"></script>
     <script>
       var postActivitesOptions = {
         chart: {
@@ -212,7 +252,7 @@
         },
         series: [
           {
-            name: "sales",
+            name: "posts",
             data: [30, 40, 45, 50, 49, 60, 70, 91, 125],
           },
         ],
@@ -245,6 +285,10 @@
 
       postActivitesChart.render();
       postByCategories.render();
+
+      $(document).ready(function () {
+        $("#table").DataTable();
+      });
     </script>
   </body>
 </html>
