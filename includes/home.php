@@ -11,22 +11,19 @@
       media="screen"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css"
     />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
-    />
+    <link rel="stylesheet" href="assets/css/tailwind.min.css" />
+    <script src="assets/js/apexcharts.js"></script>
   </head>
 
-  <body>
-    <div class="flex flex-col gap-8 px-2 py-4 ml-32">
+  <body class="bg-gray-200">
+    <div class="flex flex-col gap-8 px-2 py-4 ml-40">
       <div class="text-3xl font-medium">My Wordpress Analytics</div>
+      <!-- overview start here -->
       <div id="overview" class="">
         <div class="grid grid-cols-4 grid-rows-2 gap-4">
           <div class="row-span-2">
             <div
-              class="flex flex-col content-center items-center bg-sky-700 w-full h-full rounded-xl gap-2 py-5"
+              class="flex flex-col content-center items-center shadow-xl bg-sky-700 w-full h-full rounded-xl gap-2 py-5"
             >
               <div
                 class="bg-sky-600 rounded-full px-4 py-2 shadow-lg text-center"
@@ -103,9 +100,7 @@
                 Total Users
               </h4>
               <div class="flex flex-row gap-3">
-                <div
-                  class="bg-orange-300 rounded-full p-2 shadow text-center"
-                >
+                <div class="bg-orange-300 rounded-full p-2 shadow text-center">
                   <i class="fas fa-users text-2xl text-orange-600"></i>
                 </div>
                 <h1 class="text-4xl font-semibold">200</h1>
@@ -141,9 +136,7 @@
                 Total Tags and Catagories
               </h4>
               <div class="flex flex-row gap-3">
-                <div
-                  class="bg-pink-300 rounded-full p-2 shadow text-center"
-                >
+                <div class="bg-pink-300 rounded-full p-2 shadow text-center">
                   <i class="fas fa-tags text-2xl text-pink-600"></i>
                 </div>
                 <h1 class="text-4xl font-semibold">200</h1>
@@ -151,19 +144,107 @@
             </div>
             <!-- card end here -->
           </div>
-          <!-- <div class="row-span-3">
-                <div class="bg-black w-full h-full rounded-xl">1</div>
-            </div>
-            <div class="col-span-2 ...">
-                <div class="bg-red-700 w-full h-full rounded-xl">2</div>
-            </div>
-            <div class="row-span-2 col-span-2 ...">
-                <div class="bg-blue-700 w-full h-full rounded-xl">3</div>
-            </div> -->
         </div>
       </div>
+      <!-- overview end here -->
+      <div class="grid grid-cols-9 gap-4">
+        <!-- post Activites start here -->
+        <div class="bg-white shadow w-full rounded-lg px-5 py-4 col-span-4">
+          <h3 class="font-semibold text-lg text-gray-500">Post Activites</h3>
+          <div id="post-activites-chart"></div>
+        </div>
+        <!-- post Activites end here -->
+
+        <!--  Post By Catagories start here -->
+        <div class="bg-white shadow w-full rounded-lg px-5 py-4 col-span-3">
+          <h3 class="font-semibold text-lg text-gray-500">
+            Post By Catagories
+          </h3>
+          <div id="post-by-catagories-chart" class="py-16"></div>
+        </div>
+        <!-- Post By Catagories end here -->
+        <!-- Top users start here -->
+        <div class="bg-white shadow w-full rounded-lg col-span-2">
+          <h3 class="font-semibold text-lg text-gray-500 px-5 pt-4">
+            Top Users
+          </h3>
+          <ul class="pt-3">
+            <li class="shadow-sm py-2 px-5">
+              <div class="flex flex-row gap-3">
+                <img
+                  class="h-10"
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=BeardLight&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Surprised&eyebrowType=FlatNatural&mouthType=Smile&skinColor=Tanned"
+                />
+                <h3 class="pt-1 text-lg">Michael Belete</h3>
+              </div>
+            </li>
+            <li class="shadow-sm py-2 px-5">
+              <div class="flex flex-row gap-3">
+                <img
+                  class="h-10"
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=Red&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=Blue03&eyeType=Squint&eyebrowType=AngryNatural&mouthType=Disbelief&skinColor=Light"
+                />
+                <h3 class="pt-1 text-lg">Michael Belete</h3>
+              </div>
+            </li>
+            <li class="shadow-sm py-2 px-5">
+              <div class="flex flex-row gap-3">
+                <img
+                  class="h-10"
+                  src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=BeardLight&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Surprised&eyebrowType=FlatNatural&mouthType=Smile&skinColor=Tanned"
+                />
+                <h3 class="pt-1 text-lg">Michael Belete</h3>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- Top users start here -->
+      </div>
     </div>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="assets/js/tailwind.js"></script>
+    <script>
+      var postActivitesOptions = {
+        chart: {
+          type: "line",
+        },
+        markers: {
+          size: 0,
+        },
+        series: [
+          {
+            name: "sales",
+            data: [30, 40, 45, 50, 49, 60, 70, 91, 125],
+          },
+        ],
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        },
+      };
+
+      var postByCategoriesOptions = {
+        chart: {
+          type: "donut",
+        },
+        series: [44, 55, 13, 33],
+        labels: ["Categories1", "Categories2", "Categories3", "Categories5"],
+        plotOptions: {
+          pie: {
+            expandOnClick: true,
+          },
+        },
+      };
+
+      var postActivitesChart = new ApexCharts(
+        document.querySelector("#post-activites-chart"),
+        postActivitesOptions
+      );
+      var postByCategories = new ApexCharts(
+        document.querySelector("#post-by-catagories-chart"),
+        postByCategoriesOptions
+      );
+
+      postActivitesChart.render();
+      postByCategories.render();
+    </script>
   </body>
 </html>
