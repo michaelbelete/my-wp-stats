@@ -13,6 +13,7 @@ $today_post_count = $wpdb->get_var(
     )
 );
 
+//stats overview
 $total_posts = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='post'");
 $total_comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments");
 $total_pages = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='page'");
@@ -20,7 +21,7 @@ $total_users = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users");
 $total_media = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts where post_type='attachment'");
 $total_tags_catgories = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->term_taxonomy");
 
-
+//fetch by catgories
 $categories = get_terms('category');
 $categoriesName = [];
 $categoriesCount = [];
@@ -30,11 +31,20 @@ foreach($categories as $cat){
     array_push($categoriesCount, $cat->count);
 }
 
+//post activites
+
+$posts = $wpdb->get_results("SELECT COUNT(*) as post_count, CAST(post_date AS DATE) AS post_date FROM $wpdb->posts GROUP BY CAST(post_date AS DATE) ORDER BY post_date ASC");
+$post_dates = [];
+$post_counts = [];
+
+foreach ( $posts as $post ) {
+  array_push($post_dates, $post->post_date);
+  array_push($post_counts, $post->post_count);
+}
 ?>
 <main class="bg-gray-200">
   <div class="flex flex-col gap-8 px-2 py-4">
     <div class="text-3xl font-medium">My Wordpress Analytics </div>
-
     <div id="overview" class="">
       <div class="grid grid-cols-4 grid-rows-2 gap-4">
         <div class="row-span-2">
@@ -235,11 +245,11 @@ foreach($categories as $cat){
       series: [
         {
           name: "posts",
-          data: [30, 40, 45, 50, 49, 60, 70, 91, 125],
+          data: [<?php echo '"'.implode('","', $post_counts).'"' ?>].map(num => Number(num)),
         },
       ],
       xaxis: {
-        categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+        categories: [<?php echo '"'.implode('","', $post_dates).'"' ?>],
       },
     };
 
