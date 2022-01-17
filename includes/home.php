@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Stats</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      media="screen"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="assets/css/tailwind.min.css" />
-    <link rel="stylesheet" href="assets/css/jquery.dataTables.min.css" />
-  </head>
 
   <body class="bg-gray-200">
-    <div class="flex flex-col gap-8 px-2 py-4 ml-40">
+    <div class="flex flex-col gap-8 px-2 py-4">
       <div class="text-3xl font-medium">My Wordpress Analytics</div>
       <!-- overview start here -->
       <div id="overview" class="">
@@ -237,11 +221,6 @@
       </div>
       <!-- table end here -->
     </div>
-
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/jquery.dataTables.min.js"></script>
-    <script src="assets/js/tailwind.js"></script>
-    <script src="assets/js/apexcharts.js"></script>
     <script>
       var postActivitesOptions = {
         chart: {
