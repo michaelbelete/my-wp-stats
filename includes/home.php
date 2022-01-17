@@ -12,17 +12,29 @@ $today_post_count = $wpdb->get_var(
         $stringDate
     )
 );
+
 $total_posts = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='post'");
 $total_comments = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->comments");
 $total_pages = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts WHERE post_type='page'");
 $total_users = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->users");
 $total_media = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->posts where post_type='attachment'");
 $total_tags_catgories = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->term_taxonomy");
+
+
+$categories = get_terms('category');
+$categoriesName = [];
+$categoriesCount = [];
+
+foreach($categories as $cat){
+    array_push($categoriesName, $cat->name);
+    array_push($categoriesCount, $cat->count);
+}
+
 ?>
 <main class="bg-gray-200">
   <div class="flex flex-col gap-8 px-2 py-4">
     <div class="text-3xl font-medium">My Wordpress Analytics </div>
-    <!-- overview start here -->
+
     <div id="overview" class="">
       <div class="grid grid-cols-4 grid-rows-2 gap-4">
         <div class="row-span-2">
@@ -235,8 +247,8 @@ $total_tags_catgories = $wpdb->get_var( "SELECT COUNT(*) FROM $wpdb->term_taxono
       chart: {
         type: "donut",
       },
-      series: [44, 55, 13, 33],
-      labels: ["Categories1", "Categories2", "Categories3", "Categories5"],
+      series: [<?php echo '"'.implode('","', $categoriesCount).'"' ?>].map(num => Number(num)),
+      labels: [<?php echo '"'.implode('","', $categoriesName).'"' ?>],
       plotOptions: {
         pie: {
           expandOnClick: true,
