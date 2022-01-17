@@ -250,6 +250,9 @@ foreach ( $posts as $post ) {
     markers: {
       size: 0,
     },
+    stroke: {
+  curve: 'smooth',
+},
     series: [
       {
         name: "posts",
