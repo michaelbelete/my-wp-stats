@@ -11,24 +11,29 @@
 // register jquery and style on initialization
 add_action('init', 'register_script');
 function register_script() {
-    wp_register_script( 'Jquery', "https://code.jquery.com/jquery-3.6.0.min.js");
-    wp_register_script( 'BootstrapBundleWithPopper', "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js");
-    wp_register_script( 'ChartJs', "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js");
-    wp_register_style( 'Bootstrap', 'https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css' );
-    wp_register_style( 'FontAwesome', ' https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css' );
+    // require_once(plugin_dir_path(__FILE__).'/includes/youtubesubs-scripts.php');
+    wp_register_style("tailwind", plugin_dir_path(__FILE__).'/assets/css/tailwind.min.css');
+    wp_register_style("dataTable", plugin_dir_path(__FILE__).'/assets/css/jquery.dataTables.min.css');
+
+    wp_register_script("tailwindjs", plugin_dir_path(__FILE__).'/assets/js/tailwind.js');
+    wp_register_script("jquery", plugin_dir_path(__FILE__).'/assets/js/jquery-3.6.0.min.js');
+    wp_register_script("apexChart", plugin_dir_path(__FILE__).'/assets/js/apexcharts.js');
+    wp_register_script("dataTablejs", plugin_dir_path(__FILE__).'/assets/js/jquery.dataTables.min.js');
    
 }
 
 add_action("admin_menu", "addMenu");
 function addMenu()
 {
-    wp_enqueue_script('Jquery');
-    wp_enqueue_script('BootstrapBundleWithPopper');
-    wp_enqueue_script('ChartJs');
-    wp_enqueue_style('Bootstrap');
-    wp_enqueue_style('FontAwesome');
+    
+    wp_enqueue_style('tailwind');
+    wp_enqueue_style('dataTable');
+
+    wp_enqueue_script('tailwindjs');
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('apexChart');
+    wp_enqueue_script('dataTablejs');
     add_menu_page("My WP Stats", "My WP Stats", 4, "my-wp-stats", "launchWpStats" );
-    // add_submenu_page("example_options", "Option 1", "Option 1", 4, "example-option-1", "option1");
 }
 
 function launchWpStats()
