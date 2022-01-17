@@ -265,9 +265,8 @@
       postActivitesChart.render();
       postByCategories.render();
 
-      $(document).ready(function () {
-        $("#table").DataTable();
-      });
+      var dataTable = new DataTable("#table");
+      
     </script>
   </body>
 </html>
