@@ -41,6 +41,9 @@ foreach ( $posts as $post ) {
   array_push($post_dates, $post->post_date);
   array_push($post_counts, $post->post_count);
 }
+
+// $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_name FROM wp_posts INNER JOIN wp_users ON wp_posts.post_author = wp_users.ID GROUP BY wp_posts.post_author ORDER BY post_count DESC LIMIT 5");
+$users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_name FROM $wpdb->posts wp_posts INNER JOIN $wpdb->users wp_users ON wp_posts.post_author = wp_users.ID GROUP BY wp_posts.post_author ORDER BY post_count DESC LIMIT 5");
 ?>
 <div class="flex flex-col gap-8 px-2 py-4">
   <div class="text-3xl font-medium">My Wordpress Analytics</div>
@@ -180,63 +183,62 @@ foreach ( $posts as $post ) {
     <div class="bg-white shadow w-full rounded-lg col-span-2">
       <h3 class="font-semibold text-lg text-gray-500 px-5 pt-4">Top Users</h3>
       <ul class="pt-3">
+        <?php
+        foreach($users as $user){
+        ?>
         <li class="shadow-sm py-2 px-5">
           <div class="flex flex-row gap-3">
-            <img class="h-10"
-              src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=BeardLight&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Surprised&eyebrowType=FlatNatural&mouthType=Smile&skinColor=Tanned" />
-            <h3 class="pt-1 text-lg">Michael Belete</h3>
+            <img class="h-12 rounded-full"
+              src="https://ui-avatars.com/api/?name=<?=$user->display_name?>&&background=random&&size=80" />
+              <div class="">
+                <h3 class="text-lg"><?= $user->display_name ?></h3>
+                <span class="text-xs bg-gray-600 px-2 text-white rounded-2xl"><?=  $user->post_count?> posts</span>
+              </div>
           </div>
         </li>
-        <li class="shadow-sm py-2 px-5">
-          <div class="flex flex-row gap-3">
-            <img class="h-10"
-              src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=Red&facialHairType=MoustacheMagnum&facialHairColor=Red&clotheType=BlazerShirt&clotheColor=Blue03&eyeType=Squint&eyebrowType=AngryNatural&mouthType=Disbelief&skinColor=Light" />
-            <h3 class="pt-1 text-lg">Michael Belete</h3>
-          </div>
-        </li>
-        <li class="shadow-sm py-2 px-5">
-          <div class="flex flex-row gap-3">
-            <img class="h-10"
-              src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight2&accessoriesType=Sunglasses&hairColor=BlondeGolden&facialHairType=BeardLight&facialHairColor=Black&clotheType=ShirtScoopNeck&clotheColor=Red&eyeType=Surprised&eyebrowType=FlatNatural&mouthType=Smile&skinColor=Tanned" />
-            <h3 class="pt-1 text-lg">Michael Belete</h3>
-          </div>
-        </li>
+        <?php
+        }
+        ?>
       </ul>
     </div>
     <!-- Top users start here -->
   </div>
   <!-- table start here -->
   <div class="bg-white shadow rounded-lg px-5 py-2">
-    <h3 class="font-semibold text-lg text-gray-500 pb-5">Top Users</h3>
+    <h3 class="font-semibold text-lg text-gray-500 pb-5">User Activites</h3>
 
     <table id="table">
       <thead>
         <tr>
-          <th>Year</th>
-          <th>Total Posts</th>
-          <th>Total Comments</th>
-          <th>Total Media</th>
-          <th>Total Word</th>
-          <th>Average Comment Per Post</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Roles</th>
+          <th># Published Pages</th>
+          <th># Publish Posts</th>
+          <th># Uploaded Files</th>
+          <th># Access Private Pages</th>
+          <th># Access Private Posts</th>
         </tr>
       </thead>
       <tbody>
+        <?php
+        foreach(get_users() as $user) {
+        ?>
         <tr>
-          <td>2000</td>
-          <td>20</td>
-          <td>400</td>
-          <td>40</td>
-          <td>800</td>
-          <td>2000</td>
+          <td><?=  $user->display_name?></td>
+          <td><?= $user->user_email ?></td>
+          <td><?php
+            foreach($user->roles as $role) {
+              echo "<div class='bg-gray-700 text-white rounded-3xl text-center capitalize'>$role</div>";
+            }
+          ?></td>
+          <td><?= ($user->allcaps['publish_pages'] == '') ? 0: $user->allcaps['publish_pages']?></td>
+          <td><?= ($user->allcaps['publish_posts'] == '') ? 0 : $user->allcaps['publish_posts']?></td>
+          <td><?= ($user->allcaps['upload_files'] == '') ? 0 : $user->allcaps['upload_files']?></td>
+          <td><?= ($user->allcaps['read_private_pages'] == '') ? 0:$user->allcaps['read_private_pages'] ?></td>
+          <td><?= ($user->allcaps['read_private_posts'] == '') ? 0:$user->allcaps['read_private_posts'] ?></td>
         </tr>
-        <tr>
-          <td>2000</td>
-          <td>20</td>
-          <td>400</td>
-          <td>40</td>
-          <td>800</td>
-          <td>2000</td>
-        </tr>
+        <?php } ?>
       </tbody>
     </table>
   </div>
@@ -251,8 +253,8 @@ foreach ( $posts as $post ) {
       size: 0,
     },
     stroke: {
-  curve: 'smooth',
-},
+      curve: 'smooth',
+    },
     series: [
       {
         name: "posts",
