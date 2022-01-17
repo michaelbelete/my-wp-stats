@@ -13,9 +13,7 @@ add_action('init', 'register_script');
 function register_script() {
     wp_register_style("tailwind",  plugins_url().'/my-wp-stats/assets/css/tailwind.min.css');
     wp_register_style("dataTable", plugins_url().'/my-wp-stats/assets/css/jquery.dataTables.min.css');
-    wp_register_style("fontAwesome", "
-    https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css");
-
+    wp_register_style( 'fontAwesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.1/css/all.min.css' );
     wp_register_script("tailwindjs", plugins_url().'/my-wp-stats/assets/js/tailwind.js');
     wp_register_script("jquery", plugins_url().'/my-wp-stats/assets/js/jquery-3.6.0.min.js');
     wp_register_script("apexChart", plugins_url().'/my-wp-stats/assets/js/apexcharts.js');
