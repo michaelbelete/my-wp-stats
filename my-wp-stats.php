@@ -16,13 +16,13 @@ if(!defined('ABSPATH')){
 require_once(plugin_dir_path(__FILE__).'/includes/my_wp_stats_script.php');
 
 // // Load Class
-// require_once(plugin_dir_path(__FILE__).'/includes/youtubesubs-class.php');
+require_once(plugin_dir_path(__FILE__).'/includes/my_wp_stats_class.php');
 
 // // Register Widget
-// function register_youtubesubs(){
-//   register_widget('Youtube_Subs_Widget');
-// }
+function register_my_wp_stats_widget(){
+  register_widget('My_WP_STATS_WIDGET');
+}
 
 // // Hook in function
-// add_action('widgets_init', 'register_youtubesubs');
+add_action('widgets_init', 'register_my_wp_stats_widget');
 

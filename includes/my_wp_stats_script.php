@@ -29,6 +29,6 @@ function addMenu()
 
 function launchWpStats()
 {
-    require("template/home.php");
+    require("template/plugin.php");
 }
 ?>

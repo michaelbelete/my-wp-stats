@@ -1,0 +1,1 @@
+<h1>Hello, WP stats</h1>
