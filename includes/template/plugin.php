@@ -7,7 +7,7 @@ $today_post_count = $wpdb->get_var(
         "
             SELECT COUNT(*)
             FROM $wpdb->posts
-            WHERE DATE(post_date) = %s
+            WHERE DATE(post_date) = DATE(%s)
         ",
         $stringDate
     )
@@ -58,6 +58,8 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
             <?= $today_post_count ?>
           </h1>
           <p class="text-white">Today Posts</p>
+          
+          <?= $stringDate?>
         </div>
       </div>
       <div>
