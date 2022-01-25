@@ -58,7 +58,7 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
             <?= $today_post_count ?>
           </h1>
           <p class="text-white">Today Posts</p>
-        
+          
         </div>
       </div>
       <div>
@@ -168,16 +168,8 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
   <!-- overview end here -->
   <div class="grid grid-cols-9 gap-4">
     <!-- post Activites start here -->
-    <div class="bg-white shadow w-full rounded-lg px-5 py-4 col-span-4">
-      <div class="flex flex-row justify-between pb-8">       
+    <div class="bg-white shadow w-full rounded-lg px-5 py-4 col-span-4"> 
       <h3 class="font-semibold text-lg text-gray-500">Post Activites</h3>
-      <select id="filter">
-        <option value="">All</option>
-        <option value="7">Last 7 Days</option>
-        <option value="30">Last 30 Days</option>
-        <option value="356">This Year</option>
-      </select>
-      </div>
       <div id="post-activites-chart"></div>
     </div>
     <!-- post Activites end here -->
@@ -257,21 +249,6 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
 
   const main_post_counts = [<?= '"'.implode('","', $post_counts).'"' ?>].map(num => Number(num));
   const main_post_dates =  [<?= '"'.implode('","', $post_dates).'"' ?>];
-  var post_count = main_post_counts;
-  var post_dates = main_post_dates;
-  const filter = document.querySelector("#filter");
-  filter.addEventListener('change', (event) => {
-   let filterValue = event.target.value;
-   if(filterValue == '') {
-    filterValue = main_post_counts.length
-   }
-    post_count = main_post_counts.reverse().slice(0, Number(filterValue));
-    post_dates = main_post_dates.reverse().slice(0, Number(filterValue));
-
-    console.log(post_count);
-    console.log(post_dates);
-  })
-
 
   var postActivitesOptions = {
     chart: {
@@ -286,11 +263,11 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
     series: [
       {
         name: "posts",
-        data: post_count,
+        data: main_post_counts,
       },
     ],
     xaxis: {
-      categories: post_dates,
+      categories: main_post_dates,
     },
   };
 
