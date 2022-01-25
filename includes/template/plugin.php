@@ -58,8 +58,7 @@ $users = $wpdb->get_results("SELECT COUNT(*) as post_count, wp_users.display_nam
             <?= $today_post_count ?>
           </h1>
           <p class="text-white">Today Posts</p>
-          
-          <?= $stringDate?>
+        
         </div>
       </div>
       <div>
